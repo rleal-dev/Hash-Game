@@ -14,6 +14,8 @@ class App extends PureComponent {
 
         const { squares } = this.state
 
+        if (squares[number]) return
+        
         if (this.getWinner(squares)) {
             Alert.alert('#HashGame', 'Oops... O Jogo acabou!')
             return false
