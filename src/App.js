@@ -30,6 +30,7 @@ class App extends PureComponent {
     }
 
     getWinner(squares) {
+        
         const lines = [
             [0, 1, 2],
             [3, 4, 5],
@@ -41,8 +42,9 @@ class App extends PureComponent {
             [2, 4, 6],
         ]
 
-        for (let i = 0; i < lines.length; i++) {
-            const [a, b, c] = lines[i]
+        for (let line of lines) {
+
+            const [a, b, c] = line
 
             if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
                 Alert.alert('#HashGame', 'Parabéns.... Vencedor: ' + squares[a])
