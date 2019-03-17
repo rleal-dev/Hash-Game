@@ -3,10 +3,10 @@ import { Dimensions, StyleSheet, TouchableOpacity } from 'react-native'
 
 import { Icon } from './index'
 
-const Square = ({ value, ...props }) =>
+const Square = ({ value, color, ...props }) =>
     <TouchableOpacity style={styles.box} {...props}>
         {
-            value && <Icon name={value == 'X' ? 'times' : 'ban'} size={55} />
+            value && <Icon name={value == 'X' ? 'times' : 'circle-o'} color={color} size={60} />
         }
     </TouchableOpacity>
 
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         width: (width / 3) - 9,
         height: (width / 3) - 9,
-        backgroundColor: '#ffffff30',
+        backgroundColor: '#ffffff20',
         margin: 1,
         borderRadius: 5,
     },

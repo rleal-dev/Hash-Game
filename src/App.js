@@ -8,25 +8,31 @@ class App extends PureComponent {
     state = {
         squares: [...Array(9)],
         xIsNext: true,
+        winner: '',
+        lineWinner: [],
     }
 
-    markSquare = number => () => {
+    markSquare = index => () => {
 
         const { squares } = this.state
-
-        if (squares[number]) return
         
-        if (this.getWinner(squares)) {
-            Alert.alert('#HashGame', 'Oops... O Jogo acabou!')
+        if (this.getWinner(squares) || squares[index]) {
             return false
         }
 
-        squares[number] = this.state.xIsNext ? 'X' : 'O'
+        squares[index] = this.state.xIsNext ? 'X' : 'O'
 
         this.setState({
             squares: squares,
             xIsNext: !this.state.xIsNext,
         })
+
+        if (winner = this.getWinner(squares)) {
+            this.setState({
+                winner: winner.winner,
+                lineWinner: winner.line,
+            })
+        }
     }
 
     getWinner(squares) {
@@ -47,8 +53,10 @@ class App extends PureComponent {
             const [a, b, c] = line
 
             if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-                Alert.alert('#HashGame', 'Parabéns.... Vencedor: ' + squares[a])
-                return squares[a]
+                return {
+                    line,
+                    winner: squares[a]
+                }
             }
         }
 
@@ -56,15 +64,15 @@ class App extends PureComponent {
     }
 
     resetGame = () => this.setState({
-        squares: Array(9).fill(null),
+        squares: [...Array(9)],
         xIsNext: true,
+        winner: '',
+        lineWinner: [],
     })
   
     render() {
 
-        const { squares } = this.state
-
-        const winner = this.getWinner(squares)
+        const { squares, winner, lineWinner } = this.state
 
         return (
             <View style={styles.container}>
@@ -77,6 +85,7 @@ class App extends PureComponent {
                             <Square 
                                 key={index}
                                 value={number}
+                                color={lineWinner.includes(index) ? '#0EAC51' : '#fff'}
                                 onPress={this.markSquare(index)}
                             />
                         ))
@@ -84,9 +93,9 @@ class App extends PureComponent {
                 </View>
 
                 {
-                    winner 
+                    winner
                         ?
-                            <Text style={styles.player}>
+                            <Text style={[styles.player, styles.winner]}>
                                 Vencedor: {winner}
                             </Text>
                         :
@@ -125,6 +134,10 @@ const styles = StyleSheet.create({
         fontSize: 22,
         fontWeight: 'bold',
         marginBottom: 20,
+    },
+    winner: {
+        color: '#0EAC51',
+        fontSize: 25,
     }
 })
 
