@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react'
-import { View, Text, Alert, StyleSheet } from 'react-native'
+import { StatusBar } from 'react-native'
 
-import { Icon, Square, Button } from './components'
+import { Container, Board, TextWinner, TextPlayer } from './styles'
+import { Logo, Square, ResetButton } from './components'
 
 class App extends PureComponent {
 
@@ -75,11 +76,13 @@ class App extends PureComponent {
         const { squares, winner, lineWinner } = this.state
 
         return (
-            <View style={styles.container}>
-                <Icon name='hashtag' size={50} />
-                <Text style={styles.logo}>HashGame</Text>
+            <Container colors={['#fa8231', '#f7b731']}>
+                
+                <StatusBar barStyle="light-content" backgroundColor="#fa8231" /> 
 
-                <View style={styles.board}>
+                <Logo />
+
+                <Board>
                     {
                         squares.map((number, index) => (
                             <Square 
@@ -90,55 +93,26 @@ class App extends PureComponent {
                             />
                         ))
                     }
-                </View>
+                </Board>
 
                 {
                     winner
                         ?
-                            <Text style={[styles.player, styles.winner]}>
-                                Vencedor: {winner}
-                            </Text>
+                            <TextWinner>Vencedor: {winner}</TextWinner>
                         :
-                            <Text style={styles.player}>
+                            <TextPlayer>
                                 Próximo Jogador: { this.state.xIsNext ? 'X' : 'O' }
-                            </Text>
-
+                            </TextPlayer>
                 }
 
-                <Button label='Nova Partida' onPress={this.resetGame} />
-            </View>
+                <ResetButton 
+                    label='Nova Partida' 
+                    onPress={this.resetGame} 
+                />
+
+            </Container>
         )
     }
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5AB35',
-    },
-    logo: {
-        color: '#fff',
-        fontSize: 30,
-    },
-    board: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        flexWrap: 'wrap',
-        marginHorizontal: 10,
-        marginVertical: 20,
-    },
-    player: {
-        color: '#fff',
-        fontSize: 22,
-        fontWeight: 'bold',
-        marginBottom: 20,
-    },
-    winner: {
-        color: '#0EAC51',
-        fontSize: 25,
-    }
-})
 
 export default App

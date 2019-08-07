@@ -1,27 +1,29 @@
 import React from 'react'
-import { Dimensions, StyleSheet, TouchableOpacity } from 'react-native'
+import styled from 'styled-components/native'
 
 import { Icon } from './index'
 
 const Square = ({ value, color, ...props }) =>
-    <TouchableOpacity style={styles.box} {...props}>
+    <SquareBox {...props}>
         {
-            value && <Icon name={value == 'X' ? 'times' : 'circle-o'} color={color} size={60} />
+            value ? <Icon name={value == 'X' ? 'times' : 'circle-o'} color={color} size={40} />
+                  : <Text>{''}</Text>
         }
-    </TouchableOpacity>
+    </SquareBox>
 
-const { width } = Dimensions.get('window')
 
-const styles = StyleSheet.create({
-    box: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: (width / 3) - 9,
-        height: (width / 3) - 9,
-        backgroundColor: '#ffffff20',
-        margin: 1,
-        borderRadius: 5,
-    },
-})
+const SquareBox = styled.TouchableOpacity`
+    align-items: center;
+    justify-content: center;
+    width: 32%;
+    height: 30%;
+    background-color: #ffffff20;
+    margin: 2px;
+    border-radius: 5;
+`
+
+const Text = styled.Text`
+    font-size: 40px;
+`
 
 export default Square
