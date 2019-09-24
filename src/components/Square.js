@@ -6,7 +6,7 @@ import { Icon } from './index'
 const Square = ({ value, color, ...props }) =>
     <SquareBox {...props}>
         {
-            value ? <Icon name={value == 'X' ? 'times' : 'circle-o'} color={color} size={40} />
+            value ? <Icon name={value == 'x' ? 'times' : 'circle-o'} color={color} size={45} />
                   : <Text>{''}</Text>
         }
     </SquareBox>

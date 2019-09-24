@@ -1,11 +1,11 @@
 import React from 'react'
-import styled from 'styled-components/native'
+import styled from 'styled-components'
 
 import { Icon } from './index' 
 
-const ResetButton = ({ label, ...props }) => 
+const Button = ({ icon, label, ...props }) => 
     <ButtonBox {...props}>
-        <ButtonIcon name='refresh' />
+        <ButtonIcon name={icon} />
         <ButtonText>{label}</ButtonText>
     </ButtonBox>
 
@@ -35,4 +35,4 @@ const ButtonText = styled.Text`
     margin-left: 10px;
 `
 
-export default ResetButton
+export default Button
